@@ -1,30 +1,49 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <component :is="layout">
+    {{ this.$route.layout }}
+    <router-view/>
+    
+  </component>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+// import { useStore } from 'vuex'
+import { ref, watch, markRaw } from 'vue'
+import { useRoute } from 'vue-router';
 
-nav {
-  padding: 30px;
+import DefaultLayout from './layouts/DefaultLayout'
+import LoginLayout from './layouts/LoginLayout'
+export default {
+  name: 'App',
+  components: {
+    // new layouts should be added here
+    DefaultLayout,
+    LoginLayout
+  },
+  setup() {
+    const route = useRoute();
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+    const layout = ref();
+    const getLayout = async (lyt) => {
+      const component = await import(`@/layouts/${lyt}`);
 
-    &.router-link-exact-active {
-      color: #42b983;
+      return component.default;
+    };
+
+    // Layout change handler
+    watch(
+      () => route.meta,
+      async (meta) => {
+        try {
+          layout.value = markRaw(await getLayout(meta.layout));
+        } catch (e) {
+          layout.value = markRaw(await getLayout('LoginLayout'));
+        }
+      },
+    );
+    return {
+      layout
     }
   }
 }
-</style>
+</script>
