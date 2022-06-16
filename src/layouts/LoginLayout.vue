@@ -8,6 +8,7 @@
     </v-main>
   </v-layout> -->
   <div></div>
+  <slot></slot>
 </template>
 <script>
 export default {

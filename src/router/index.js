@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 // import HomeView from '../views/HomeView.vue'
 // import AppealsView from '@/views/AppealsView'
 
@@ -6,16 +7,25 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/HomeView'),
+    component: () => import('@/views/HomeView'),
     meta: {
       layout: 'DefaultLayout',
       guard: 'private',
     },
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/LoginView'),
+    meta: {
+      layout: 'LoginLayout',
+      guard: 'private',
+    },
+  },
+  {
     path: '/appeals',
     name: 'appeals',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/AppealsView'),
+    component: () => import('@/views/AppealsView'),
     meta: {
       layout: 'DefaultLayout',
       guard: 'private',
@@ -27,7 +37,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+    component: () => import('../views/AboutView.vue'),
     meta: {
       layout: 'DefaultLayout',
       guard: 'private',
@@ -38,6 +48,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to) => {
+  
+  if (1 == 3 && to.path != '/login'){
+    return '/login'
+  }
 })
 
 export default router

@@ -1,8 +1,7 @@
 <template>
   <v-navigation-drawer 
-    color="grey-darken-2"
     permanent
-    :rail="drawer"
+    color="grey-lighten-2"
   >
     <v-list-item
       prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
@@ -20,9 +19,9 @@
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-home-city" title="Home" value="home"></v-list-item>
-      <v-list-item prepend-icon="mdi-account" title="My Account" value="account"></v-list-item>
-      <v-list-item prepend-icon="mdi-account-group-outline" title="Users" value="users"></v-list-item>
+      <v-list-item title="Все обращения" value="home"></v-list-item>
+      <v-list-item title="Мои обращения" value="account"></v-list-item>
+      <v-list-item title="Аналитика" value="users"></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
