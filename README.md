@@ -1,4 +1,5 @@
-# portal-front
+# Vue template
+A vue3 project template with layout, routing, store, api
 
 ## Project setup
 ```
